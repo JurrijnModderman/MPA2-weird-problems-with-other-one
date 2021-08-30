@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
-use App\Http\Requests;
 //use Session;
 use Illuminate\Support\Facades\Session;
 use App\Cart;
 use App\Models\Order;
-use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class ProductsController extends Controller
 {

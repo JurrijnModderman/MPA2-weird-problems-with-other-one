@@ -38,8 +38,8 @@
                             Action <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="{{route('reduceByOne'), ['id' => $product ['item'] ['id']]}}">Reduce by 1</a>
-                            <a href="{{route('remove'), ['id' => $product ['item'] ['id']]}}">Reduce All</a>
+                            <a href="{{ route('reduceByOne', ['id'=> $product['item']]['id']) }}">Reduce by 1</a>
+                            <a href="{{ route('remove', ['id'=> $product['item']]['id']) }}">Reduce All</a>
                         </div>
                        
                     </div>
