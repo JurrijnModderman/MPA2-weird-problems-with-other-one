@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="{{route('home')}}">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,8 +21,8 @@
           User
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="">Login</a>
-          <a class="dropdown-item" href="">Register</a>
+          <a class="dropdown-item" href="{{route('login')}}">Login</a>
+          <a class="dropdown-item" href="{{route('register')}}">Register</a>
         </div>
       </li>
       <li class="nav-item">

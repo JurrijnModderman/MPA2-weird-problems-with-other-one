@@ -26,12 +26,15 @@ Route::get('/cart', [ProductsController::class, 'getCart'])->name('product.cart'
 Route::get('/shopping-cart', [ProductsController::class, 'getCart'])->name('product.shoppingCart');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/login', function () {
-    return view('auth.login')->name('login');
-});
-Route::get('/register', function () {
-    return view('auth.register')->name('register');
-});
+
+Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+Route::get('/register', [App\Http\Controllers\HomeController::class, 'index'])->name('register');
+// Route::get('/login', function () {
+//     return view('auth.login')->name('login');
+// });
+// Route::get('/register', function () {
+//     return view('auth.register')->name('register');
+// });
 
 // require __DIR__ . '/auth.php';
 
