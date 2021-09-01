@@ -20,15 +20,15 @@ use App\Http\Controllers\ProductsController;
 // ->name('product.addToCart');\
 Route::get('/', [ProductsController::class, 'index'])->name('product.index');
 Route::get('/cart{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
-Route::get('/reduce{id}', [ProductsController::class, 'reduceByOne'])->name('reduceByOne');
+Route::get('/reduce{id}', [ProductsController::class, 'getReduceByOne'])->name('reduceByOne');
 Route::get('/remove{id}', [ProductsController::class, 'getRemoveItem'])->name('remove');
 Route::get('/cart', [ProductsController::class, 'getCart'])->name('product.cart');
 Route::get('/shopping-cart', [ProductsController::class, 'getCart'])->name('product.shoppingCart');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
-Route::get('/register', [App\Http\Controllers\HomeController::class, 'index'])->name('register');
+// Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+// Route::get('/register', [App\Http\Controllers\HomeController::class, 'index'])->name('register');
 // Route::get('/login', function () {
 //     return view('auth.login')->name('login');
 // });
@@ -36,5 +36,5 @@ Route::get('/register', [App\Http\Controllers\HomeController::class, 'index'])->
 //     return view('auth.register')->name('register');
 // });
 
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';
 

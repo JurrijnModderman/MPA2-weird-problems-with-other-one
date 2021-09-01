@@ -28,8 +28,9 @@
         <tbody>
         <tr>
         @foreach(App\Models\Product::all() as $product) 
-                <th scope="row">{{$product['qty']}}</th>
-                <td><strong>{{$product['item']['name']}}</strong></td>
+                <th scope="row">{{ $product['qty'] }}</th>
+                <!-- {{ dd($product['title']) }} -->
+                <td><strong>{{ $product['title'] }}</strong></td>
                 <td><span class="label label-succes">€{{ $product['price'] }}</span></td>
                 <td>
                     <div class="btn-group">
@@ -38,8 +39,8 @@
                             Action <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="{{ route('reduceByOne', ['id'=> $product['item']]['id']) }}">Reduce by 1</a>
-                            <a href="{{ route('remove', ['id'=> $product['item']]['id']) }}">Reduce All</a>
+                            <a href="{{ route('reduceByOne', ['id'=> $product['id']]) }}">Reduce by 1</a>
+                            <a href="{{ route('remove', ['id'=> $product['id']]) }}">Reduce All</a>
                         </div>
                        
                     </div>
