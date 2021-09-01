@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\Session;
 use App\Cart;
 use App\Models\Order;
 
@@ -24,7 +23,7 @@ class ProductsController extends Controller
         $cart->add($product, $product->id);
 
         $request->session()->put('cart', $cart);
-        return redirect()->route('product.index');
+        return redirect()->route('home');
     }
 
     public function getReduceByOne(Request $request, $id) {
@@ -37,20 +36,20 @@ class ProductsController extends Controller
         } else {
             $request->session()->forget('cart');
         }
-        return redirect()->route('product.shoppingCart');
+        return redirect()->route('product.cart');
     }
 
     public function getRemoveItem(Request $request, $id) {
         $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->reduceByOne($id);
+        $cart->removeItem($id);
 
         if (count($cart->items) > 0) {
             $request->session()->put('cart', $cart);
         } else {
             $request->session()->forget('cart');
         }
-        return redirect()->route('product.shoppingCart');
+        return redirect()->route('product.cart');
     }
 
     public function getCart(Request $request) {
@@ -64,26 +63,33 @@ class ProductsController extends Controller
 
     public function getCheckout (Request $request) {
         if (!$request->session()->has('cart')) {
-            return view('shop.shopping-cart');
+            return view('product.cart');
         }
         $oldCart = $request->session()->get('cart');
         $cart = new Cart($oldCart);
         $total = $cart->totalPrice;
-        return view('shop.checkout' , ['total' => $total]);
+        return view('shoppping-cart' , ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
     public function postCheckout(Request $request) {
-        if (!$request->session()->has('cart')) {
-            return redirect()->route('shop.shoppingCart');
-        }
+        $hasCart = $request->session()->has('cart');
         $oldCart = $request->session()->get('cart');
-        $cart =  new Cart($oldCart);
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+
+        if ( ! $hasCart)
+        {
+            return redirect()->route('shop.checkout');
+        }
+
         $order = new Order();
         $order->cart = serialize($cart);
         $order->address = $request->input('address');
         $order->name = $request->input('name');
         $order->save();
-        $request->session()->forget('cart');
-        return redirect()->route('product.index')->with('succes', 'Succesfully purchased products!');
+
+        $request->session()->forget('product.cart');
+
+        return redirect()->route('product')->with($request->session()->flash('success', 'Payment successful!'));
     }
 }

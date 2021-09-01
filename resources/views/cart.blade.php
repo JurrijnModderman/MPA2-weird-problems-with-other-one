@@ -1,19 +1,20 @@
 <html lang="en">
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/products.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    
+
 
     <title>Shopping Cart</title>
 </head>
 <body>
+
 @if (Session::has('cart'))
     <table class="table table-striped">
         <thead>
@@ -27,27 +28,20 @@
 
         <tbody>
         <tr>
-        @foreach(App\Models\Product::all() as $product) 
+        @foreach($products as $product) 
                 <th scope="row">{{ $product['qty'] }}</th>
-                <!-- {{ dd($product['title']) }} -->
-                <td><strong>{{ $product['title'] }}</strong></td>
+                <td><strong>{{ $product['item']['title'] }}</strong></td>
                 <td><span class="label label-succes">€{{ $product['price'] }}</span></td>
                 <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            Action <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="{{ route('reduceByOne', ['id'=> $product['id']]) }}">Reduce by 1</a>
-                            <a href="{{ route('remove', ['id'=> $product['id']]) }}">Reduce All</a>
-                        </div>
-                       
+                        <a class="dropdown-item"
+                               href="{{ route('reduceByOne', ['id'=> $product['item']['id']]) }}">Reduce by 1</a>
+                        <a class="dropdown-item"
+                               href="{{ route('remove', ['id'=> $product['item']['id']]) }}">Reduce all</a>
                     </div>
                 </td>
-        </tr>
-        </tbody>
+            </tr>
         @endforeach
+        </tbody>
     </table>
 
 
@@ -62,7 +56,7 @@
             
         </div>
     </div>
-    <button type="button" href="{{route()}}"></button>
+    <a type="button" href="{{ route('product.getShoppingCart', ['id'=> $product['item'] ['id']]) }}">Checkout</button>
 @else
     <div class="row">
         <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
@@ -73,5 +67,6 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+
